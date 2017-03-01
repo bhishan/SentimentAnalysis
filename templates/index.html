@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>MOVIE SENTIMENT ANALYSIS</title>
+<link rel="shortcut icon" href="{{ url_for('static',filename='images/favicon.ico') }}" type="image/x-icon" />
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap/css/bootstrap.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/aero.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/multi-select.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/jquery.jqplot.css') }}">
+</head>
+<body>
+<div id="wrap">
+  <div class="changeSaveStatus" title="Every change you make is automatically saved" style="" id="changeSaveStatus">Changes have been saved.</div>
+  <div id="main">
+    <nav class="navbar navbar-inverse navbar-fixed-top shadow">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>-->
+         <img src="{{ url_for('static',filename='images/logo.jpg') }}" alt="Voltdb Deployment Manager"> <h4 style="text-color:green;">Sentiment Analysis</h4></div>
+        <!--<div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-left">
+            <li class="active"><a href="#" id="dbManager">Cluster Settings</a></li>
+            <li><a href="#" id="serverSetting">Server Settings</a></li>
+          </ul>
+        </div>-->
+      </div>
+    </nav>
+    <div class="container-fluid database" id="divDbManager">
+
+<div class="col-sm-9">
+          <h1 style="position:relative;font-weight:bold;font-size:26px;">IMDB Review Page URL</h1>
+              <input style="width:80%" type="text" id="reviewurl" name="reviewurl">
+              <button id="btnAddReviewUrl" type="button" class="btn" data-dismiss="modal">Ok</button>
+            </div>
+
+
+      <div class="clear"></div>
+
+      <div class="clusterContent">
+<!--
+      <div class="clusterStartStop">
+    <div style="margin-top:1%;margin-left:15%;margin-bottom:9%;" class="clusterBtnWrap">
+     <a id="startAnalysis" href="javascript:void(0);" class="clustBtn" data-toggle="modal" data-target="#stopClusterConfirmation"><span aria-hidden="true" class="glyphicon glyphicon-play playColor"></span><span class="clusterFont">Start <span style="font-size:14px;">Analysis</span></span></a>
+    <div class="clear"></div>
+    </div>
+      
+      </div>
+-->
+          <div id="chartContainer" style="width: 100%; height: 300px"></div>
+
+        <div class="resetpb">
+                    <!--<div class="clusterWrapper">
+                      <div class="ContentServerHead">
+                          <div class="ContentServerLeft">
+                          <span class="serverIcon">Servers</span>
+                          </div>
+                          <div class="addServer ContentServerRight">
+                          &lt;!&ndash;<a class="addServer" id="btnAddServer" href="javascript:void(0);"data-toggle="modal" data-target="#addServer"> <span class="plus"></span>Add Server</a> </div>&ndash;&gt;
+                          <div class="dropdown">
+                              <button id="btnAddServerOption" class="btnAddServer dropdown-toggle" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                              <span class="plus"></span> Add Server <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                              <li><a id="btnAddServer"  href="javascript:void(0);"data-toggle="modal" data-target="#addServer">Add New Server</a></li>
+                              <li><a id="btnAddExistingServer" href="javascript:void(0);"data-toggle="modal" data-target="#addExistingServer">Add Existing Server</a></li>
+                              </ul>
+                          </div>
+                          <div class="clear"></div>
+                      </div>
+                        <div class="clear"></div>
+                        </div>
+                      <div class="ContentServerBody">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tblCluster" id="serverList">
+                        </table>
+                      </div>
+                    </div>-->
+
+        </div>
+        <div class="clear"></div>
+      </div>
+<!--
+            <div class="rightSide">
+
+      <div id="upload-training" class="leftSide upDownBtn"> <span class="uploadIcon"></span>
+                  <form action="http://localhost:8000/api/1.0/uploadtestapi" method="POST" enctype="multipart/form-data">
+                  <span id="upload-trainingset" class="file-input  btn-file"> TrainingSet
+                <input type="file" onchange="this.form.submit();" name="file" multiple>
+                </span>
+              </form>
+              </div>
+
+      <div id="upload-test" class="leftSide upDownBtn"> <span class="uploadIcon"></span>
+                  <form action="http://localhost:8000/api/1.0/uploadtrainapi" method="POST" enctype="multipart/form-data">
+                  <span id="upload-testset" class="file-input  btn-file"> TestSet
+                <input type="file" onchange="this.form.submit();" name="file" multiple>
+                </span>
+              </form>
+              </div>
+              </div>
+-->
+      </div>
+
+
+ <!--     <div class="col-sm-9">
+          <h1 style="position:relative;font-weight:bold;font-size:26px;">IMDB Review Page URL</h1>
+              <input style="width:80%" type="text" id="reviewurl" name="reviewurl">
+              <button id="btnAddReviewUrl" type="button" class="btn" data-dismiss="modal">Ok</button>
+            </div>
+
+
+      <div class="clear"></div>-->
+      <br>
+      <br>
+
+
+<div id="negationside" style='float:left; width:45%; margin-left:30px;'>
+    <h1 style="color:red;" class="clusterFont">Negative Sentiment</h1>
+    <br>
+    <div style="height:400px;overflow-y:scroll;padding-left:5px;padding-right:5px;" class="clusterContent">
+
+        <ul id="ulNegative">
+        </ul>
+    </div>
+</div>
+
+<div id="positiveside" style='float:left; width:45%; margin-left:30px'>
+    <h1 style="color:green;" class="clusterFont">Positive Sentiment</h1>
+    <br>
+    <div style="height:400px;overflow-y:scroll;padding-left:5px;padding-right:5px;" class="clusterContent">
+
+        <ul id="ulPositive">
+        </ul>
+    </div>
+</div>
+
+      </div>
+      </div>
+    </div>
+  </div>
+
+<div class="footer" id="mainFooter">
+  <p>Copyright © 2016 Bhishan. All rights reserved. </p>
+</div>
+
+
+<script src="{{ url_for('static', filename='js/jquery-1.11.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.cookie.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.validate.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.multi-select.js') }}"></script>
+<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/icheck.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.jqplot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.canvasjs.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/mediator.js') }}"></script>
+
+<script type="text/javascript">
+    $("#negationside").hide()
+    $("#positiveside").hide()
+</script>
+<!--
+<script>
+          $(document).ready(function(){
+			 
+			  
+            var callbacks_list = $('.mainContent');
+            $('.hasSubLabel td input, .security td input, .rowDr td input, .subLabelRow td ').on('ifCreated ifClicked ifChanged ifChecked ifUnchecked ifDisabled ifEnabled ifDestroyed', function(event){
+              callbacks_list.prepend();
+            }).iCheck({
+              checkboxClass: 'icheckbox_square-blue',
+              radioClass: 'iradio_square-blue',
+              increaseArea: '20%'
+            });
+			 // $("#input-4").fileinput({showCaption: false});
+			  
+			 $("#navbar li").click(function () {
+       $("#navbar li").removeClass('active');
+       $(this).addClass('active');
+       var activeLinkId = "";
+       var activeLink = $("#navbar li.active a");
+       if (activeLink.length > 0) {
+           activeLinkId = activeLink.attr("id");
+           if (activeLinkId == "serverSetting") {
+               $("#divDbManager").addClass("hidden");
+               $("#divServerSetting").removeClass("hidden");
+           }
+           else {
+               $("#divServerSetting").addClass("hidden");
+               $("#divDbManager").removeClass("hidden");
+           }
+           $("#navbar").removeClass("in");
+       }
+
+       //if (activeLinkId == "navSqlQuery")
+       //        return NavigationTabs.SQLQuery;
+       //
+       //    else if (activeLinkId == "navSchema")
+       //        return NavigationTabs.Schema;
+   });
+          });
+		  
+		  
+ 
+
+$("[rel=top]").tooltip({ placement: 'top'}); 
+$("[rel=left]").tooltip({ placement: 'left'}); 
+$("[rel=right]").tooltip({ placement: 'right'}); 
+$("[rel=bottom]").tooltip({ placement: 'bottom'}); 
+
+		
+
+		  </script>
+-->
+
+<!---overlay--->
+
+
+
+   </div>
+  </div>
+</div>
+<!-- Connection Source End -->
+
+<div class="loader" ></div>
+</div>
+</body>
+</html>
